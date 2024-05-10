@@ -46,7 +46,7 @@ MIDDLEWARE = [
 SITE_ID = 1
 
 CORS_ORIGIN_WHITELIST = [
-    "https://notes-backend-ten.vercel.app"
+    "https://notes-backend-ten.vercel.app",
     "https://notes-frontend-blush.vercel.app"
 ]
 
@@ -55,7 +55,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://notes-backend-ten.vercel.app"
+    "https://notes-backend-ten.vercel.app",
     "https://notes-frontend-blush.vercel.app"
 ]
 
