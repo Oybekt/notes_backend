@@ -45,7 +45,7 @@ MIDDLEWARE = [
 
 SITE_ID = 1
 
-CORS_OROGIN_WHITELIST = [
+CORS_ORIGIN_WHITELIST = [
     "https://notes-backend-ten.vercel.app"
     "https://notes-frontend-blush.vercel.app"
 ]
