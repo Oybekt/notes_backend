@@ -1,16 +1,16 @@
 import os
 from pathlib import Path
-
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-72tk(z%=%q*)!+1r28bdgh(pa=^q=j*7=v=mb=j536c%+5)v9n'
+load_dotenv()
 
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
-DEBUG = True
+DEBUG = bool(os.environ.get('DEBUG'))
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
 
 
@@ -28,8 +28,11 @@ INSTALLED_APPS = [
     "todo",
 ]
 
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -39,7 +42,22 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+
+SITE_ID = 1
+
+
+CORS_OROGIN_WHITELIST = [
+
+]
+
+CSRF_TRUSTED_ORIGINS = [
+
+]
+
+CORS_ALLOWED_ORIGINS = [
+
+]
+
 
 ROOT_URLCONF = 'core.urls'
 
@@ -59,7 +77,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'core.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.app'
+
+
 
 DATABASES = {
     'default': {
@@ -67,6 +87,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     "defaut": {
+#         "ENGINE": 'django.db.backends.postgresql',
+#         "NAME": os.environ["DBNAME"],
+#         "USER": os.environ["DBUSER"],
+#         "PASSWORD": os.environ["DBPASSWORD"],
+#         "HOST": os.environ["DBHOST"],
+#         "PORT": os.environ["DBPORT"],
+#     }
+# }
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -97,9 +128,12 @@ USE_TZ = True
 
 
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = 'static/'
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
